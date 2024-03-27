@@ -1,6 +1,8 @@
 
 package pooaula1;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -27,6 +29,13 @@ public class Pessoa {
         
         return idade;
         
+    }
+   
+
+    @Override
+    public String toString() {
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        return "Pessoa{" + "nome=" + nome + ", dataNascimento=" + formato.format(dataNascimento) + '}';
     }
     
     String imprimir() {
