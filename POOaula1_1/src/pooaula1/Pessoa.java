@@ -7,8 +7,8 @@ import java.util.Date;
 
 public class Pessoa {
     
-    String nome;
-    Date dataNascimento;
+    public String nome;
+    public Date dataNascimento;
     
     int calcularIdade() {
         Calendar dataNasc = Calendar.getInstance();
