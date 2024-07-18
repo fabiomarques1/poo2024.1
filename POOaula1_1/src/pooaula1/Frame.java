@@ -6,6 +6,7 @@ package pooaula1;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
@@ -13,17 +14,20 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
+ * 
  *
  * @author fabiomacz
  */
 public class Frame extends javax.swing.JFrame {
-    Pessoa pessoa;
     Date dataNascimento = null;
+    //Criar Lista Pessoas
+    ArrayList<Pessoa> pessoas = new ArrayList<>();
     /**
      * Creates new form Frame
      */
     public Frame() {
         initComponents();
+        txtNome.requestFocus();
     }
 
     /**
@@ -36,124 +40,122 @@ public class Frame extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        lblNome = new javax.swing.JLabel();
+        txtNome = new javax.swing.JTextField();
+        lblDataNascimento = new javax.swing.JLabel();
+        ftxtDataNascimento = new javax.swing.JFormattedTextField();
+        btnCadastrar = new javax.swing.JButton();
+        btnSumarizar = new javax.swing.JButton();
+        btnSair = new javax.swing.JButton();
+        btnListarPessoas = new javax.swing.JButton();
+        btnLimparLista = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Nome");
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setText("Data Nascimento");
+        lblNome.setText("Nome");
+        jPanel1.add(lblNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(65, 51, -1, -1));
+        jPanel1.add(txtNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(104, 48, 176, -1));
+
+        lblDataNascimento.setText("Data Nascimento");
+        jPanel1.add(lblDataNascimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 86, -1, -1));
 
         try {
-            jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+            ftxtDataNascimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        jFormattedTextField1.addFocusListener(new java.awt.event.FocusAdapter() {
+        ftxtDataNascimento.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                jFormattedTextField1FocusLost(evt);
+                ftxtDataNascimentoFocusLost(evt);
             }
         });
+        jPanel1.add(ftxtDataNascimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(104, 83, 124, -1));
 
-        jButton1.setText("Cadastrar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnCadastrar.setText("Cadastrar");
+        btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnCadastrarActionPerformed(evt);
             }
         });
+        jPanel1.add(btnCadastrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(186, 152, 110, -1));
 
-        jButton2.setText("Sumarizar");
-
-        jButton3.setText("Sair");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnSumarizar.setText("Sumarizar");
+        btnSumarizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnSumarizarActionPerformed(evt);
             }
         });
+        jPanel1.add(btnSumarizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(304, 48, 110, -1));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(85, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
+        btnSair.setText("Sair");
+        btnSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSairActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnSair, new org.netbeans.lib.awtextra.AbsoluteConstraints(302, 152, 110, -1));
 
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButton1, jButton2, jButton3});
+        btnListarPessoas.setText("Listar Pessoas");
+        btnListarPessoas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListarPessoasActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnListarPessoas, new org.netbeans.lib.awtextra.AbsoluteConstraints(304, 19, 110, -1));
 
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(48, 48, 48)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 141, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
-                .addGap(33, 33, 33))
-        );
+        btnLimparLista.setText("Limpar Lista");
+        btnLimparLista.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparListaActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnLimparLista, new org.netbeans.lib.awtextra.AbsoluteConstraints(304, 80, 110, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 428, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String nome = jTextField1.getText();
+    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
+        String nome = txtNome.getText();
         if (nome.isBlank()) {
             JOptionPane.showMessageDialog(this, "Informe o nome");
-            jTextField1.requestFocus();
+            txtNome.requestFocus();
         } else if (dataNascimento == null) {
             JOptionPane.showMessageDialog(this, "Informe uma data de nascimento válida.");
-            jFormattedTextField1.requestFocus();
+            ftxtDataNascimento.requestFocus();
         } else {
-            JOptionPane.showMessageDialog(this, "Nome: " + jTextField1.getText() +
-                "\nData de Nascimento: " + jFormattedTextField1.getText());
+            Pessoa p = new Pessoa(); // Criar objeto da classe pessoa
+            p.nome = txtNome.getText();
+            p.dataNascimento = dataNascimento;
+            pessoas.add(p); //adicionar a lista
+            JOptionPane.showMessageDialog(this, "Nome: " + txtNome.getText() +
+                "\nData de Nascimento: " + ftxtDataNascimento.getText());
+            txtNome.setText("");
+            ftxtDataNascimento.setValue(null);
+            txtNome.requestFocus();
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnCadastrarActionPerformed
 
-    private void jFormattedTextField1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jFormattedTextField1FocusLost
+    private void ftxtDataNascimentoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_ftxtDataNascimentoFocusLost
         boolean erro = true;
         dataNascimento = null;
-        String dataTexto = jFormattedTextField1.getText();
+        String dataTexto = ftxtDataNascimento.getText();
         //Converter de String para Date
         SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
         formatoData.setLenient(false);
@@ -168,18 +170,59 @@ public class Frame extends javax.swing.JFrame {
             }
 
         } catch (ParseException ex) {
-            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         if (erro) {
             dataNascimento = null;
             JOptionPane.showMessageDialog(this, "Data Inválida: " + dataTexto);
+            ftxtDataNascimento.requestFocus();
         }
-    }//GEN-LAST:event_jFormattedTextField1FocusLost
+    }//GEN-LAST:event_ftxtDataNascimentoFocusLost
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
         System.exit(0);
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnSairActionPerformed
+
+    private void btnSumarizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSumarizarActionPerformed
+        if (pessoas.isEmpty()) {
+           JOptionPane.showMessageDialog(this, "Não há pessoas cadastradas!");
+        } else {
+            SumarioPessoa sumario = new SumarioPessoa();
+            sumario.sumarizar(pessoas);
+            JOptionPane.showMessageDialog(this,
+                    "Qtde: " + sumario.cont
+                    + "\nQtde de Pessoas de Maior: " + sumario.contMaior
+                    + "\nQtde de Pessoas de Menor: " + sumario.contMenor
+                    + "\nMaior Idade: " + sumario.maior
+                    + "\nPessoa com Maior Idade: " + sumario.nomeMaior
+                    + "\nMenor Idade: " + sumario.menor
+                    + "\nPessoa com Menor Idade: " + sumario.nomeMenor
+                    + "\nMédia das Idades: " + sumario.media
+                    + "\nPercentual de Pessoas de Maior: " + sumario.percMaior
+                    + "\nPercentual de Pessoas de Menor: " + sumario.percMenor
+            );
+        }
+
+    }//GEN-LAST:event_btnSumarizarActionPerformed
+
+    private void btnListarPessoasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarPessoasActionPerformed
+        if (pessoas.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Não há pessoas cadastradas!");
+        } else {
+            String msg = "";
+            for (Pessoa p : pessoas) {
+                msg = msg + p.imprimir() + "\n\n";
+            }
+            JOptionPane.showMessageDialog(this, msg);
+        }
+    }//GEN-LAST:event_btnListarPessoasActionPerformed
+
+    private void btnLimparListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparListaActionPerformed
+        // TODO add your handling code here:
+        pessoas.clear();
+        JOptionPane.showMessageDialog(this, "Lista Apagada!");
+    }//GEN-LAST:event_btnLimparListaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -217,13 +260,15 @@ public class Frame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JButton btnCadastrar;
+    private javax.swing.JButton btnLimparLista;
+    private javax.swing.JButton btnListarPessoas;
+    private javax.swing.JButton btnSair;
+    private javax.swing.JButton btnSumarizar;
+    private javax.swing.JFormattedTextField ftxtDataNascimento;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel lblDataNascimento;
+    private javax.swing.JLabel lblNome;
+    private javax.swing.JTextField txtNome;
     // End of variables declaration//GEN-END:variables
 }

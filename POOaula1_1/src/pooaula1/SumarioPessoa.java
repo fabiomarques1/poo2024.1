@@ -11,7 +11,7 @@ public class SumarioPessoa {
     float media = 0, percMenor = 0, percMaior;
     String nomeMenor = null, nomeMaior = null;
     
-    public SumarioPessoa sumarizar(ArrayList<Pessoa> pessoas) {
+    public void sumarizar(ArrayList<Pessoa> pessoas) {
         //Processamento das variváveis de sumarização
         for (Pessoa p : pessoas) {
             cont++;
@@ -34,7 +34,6 @@ public class SumarioPessoa {
         media = (float) soma/cont;
         percMenor = (float) contMenor/cont * 100;
         percMaior = (float) contMaior/cont * 100;
-        return this;
     }
 
     @Override
