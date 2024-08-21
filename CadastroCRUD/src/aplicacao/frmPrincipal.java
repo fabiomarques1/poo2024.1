@@ -6,6 +6,9 @@ package aplicacao;
 
 import dao.DAOFactory;
 import dao.PessoaDAO;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.Pessoa;
 /**
@@ -16,6 +19,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     
     PessoaDAO pessoaDAO = DAOFactory.criarPessoaDAO();
     DefaultTableModel modelo = null;
+   SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 
     /**
      * Creates new form frmPrincipal
@@ -42,6 +46,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         btnSair = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
         addWindowFocusListener(new java.awt.event.WindowFocusListener() {
             public void windowGainedFocus(java.awt.event.WindowEvent evt) {
                 formWindowGainedFocus(evt);
@@ -73,7 +78,8 @@ public class frmPrincipal extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tblPessoa.setColumnSelectionAllowed(true);
+        tblPessoa.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tblPessoa.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(tblPessoa);
         tblPessoa.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         if (tblPessoa.getColumnModel().getColumnCount() > 0) {
@@ -82,12 +88,32 @@ public class frmPrincipal extends javax.swing.JFrame {
         }
 
         btnInserir.setText("Inserir");
+        btnInserir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInserirActionPerformed(evt);
+            }
+        });
 
         btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         btnApagar.setText("Apagar");
+        btnApagar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnApagarActionPerformed(evt);
+            }
+        });
 
         btnSair.setText("Sair");
+        btnSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSairActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -123,6 +149,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void preencherTabela() {
@@ -131,7 +158,7 @@ public class frmPrincipal extends javax.swing.JFrame {
             for (Pessoa pessoa : pessoaDAO.listar()) {
                 modelo.addRow(new Object[]{pessoa.getCodigo(), 
                                            pessoa.getNome(), 
-                                           pessoa.getDataNascimento()}
+                                           formato.format(pessoa.getDataNascimento())}
                                );
             }
         } catch (Exception e) {
@@ -143,6 +170,57 @@ public class frmPrincipal extends javax.swing.JFrame {
         preencherTabela();
     }//GEN-LAST:event_formWindowGainedFocus
 
+    private void btnApagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApagarActionPerformed
+        apagar();
+    }//GEN-LAST:event_btnApagarActionPerformed
+
+    private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
+        new frmPessoa(null).setVisible(true);
+    }//GEN-LAST:event_btnInserirActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        editar();
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_btnSairActionPerformed
+
+     private void apagar() {
+        try {
+            Integer codigo = (Integer) modelo.getValueAt(tblPessoa.getSelectedRow(), 0);
+
+            int linha = pessoaDAO.apagar(codigo);
+            if (linha > 0) {
+                modelo.removeRow(tblPessoa.getSelectedRow());
+                JOptionPane.showMessageDialog(this, "Item excluído com sucesso!");
+            } else {
+                JOptionPane.showMessageDialog(this, "Erro ao excluir.");
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Por favor, selecionar uma linha da tabela");
+        } 
+    }
+     
+    private void editar() {
+        try {
+            Integer codigo = (Integer) modelo.getValueAt(tblPessoa.getSelectedRow(), 0);
+            String nome = (String) modelo.getValueAt(tblPessoa.getSelectedRow(), 1);
+            String dataTexto = (String) modelo.getValueAt(tblPessoa.getSelectedRow(), 2);
+            Date dataNascimento = formato.parse(dataTexto);
+            Pessoa pessoa = new Pessoa();
+            pessoa.setCodigo(codigo);
+            pessoa.setNome(nome);
+            pessoa.setDataNascimento(dataNascimento);
+
+            new frmPessoa(pessoa).setVisible(true);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Por favor, selecionar uma linha da tabela");
+        }
+    }
     /**
      * @param args the command line arguments
      */

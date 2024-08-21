@@ -68,7 +68,7 @@ public class PessoaDAOJDBC implements PessoaDAO {
     public List<Pessoa> listar() {
         ResultSet rset;
         String select = "SELECT * FROM pessoa";
-        List<Pessoa> pessoas = new ArrayList<Pessoa>();
+        List<Pessoa> pessoas = new ArrayList<>();
         try {        
             rset = DAOGenerico.executarConsulta(select);
             while (rset.next()) {
