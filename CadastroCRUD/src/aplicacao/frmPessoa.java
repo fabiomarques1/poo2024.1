@@ -38,7 +38,7 @@ public class frmPessoa extends javax.swing.JFrame {
             btnOK.setText("Editar");
             txtNome.setText(this.pessoa.getNome());
             ftxtDataNascimento.setValue(formato.format(this.pessoa.getDataNascimento()));
-            System.out.println(formato.format(this.pessoa.getDataNascimento()));
+            this.dataNascimento = this.pessoa.getDataNascimento();
         } else {
             btnOK.setText("Inserir");
         }
