@@ -23,7 +23,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     LutaDAO lutaDAO = DAOFactory.criarLutaDAO();
     LutadorDAO lutadorDAO = DAOFactory.criarLutadorDAO();
     DefaultTableModel modeloLuta, modeloLutador = null;
-
+    SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
     /**
      * Creates new form frmPrincipal
      */
@@ -55,8 +55,6 @@ public class frmPrincipal extends javax.swing.JFrame {
     }
     
     private void preencherTabelaLuta() {
-        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        
         modeloLuta.getDataVector().clear();
         try {
             for (Luta luta : lutaDAO.listar()) {
@@ -116,7 +114,7 @@ public class frmPrincipal extends javax.swing.JFrame {
             int idade = (Integer) modeloLutador.getValueAt(tblLutador.getSelectedRow(), 3);
             float altura = (Float) modeloLutador.getValueAt(tblLutador.getSelectedRow(), 4);
             float peso = (Float) modeloLutador.getValueAt(tblLutador.getSelectedRow(), 5);
-            
+
             Lutador lutador = new Lutador();
             lutador.setCodigo(codigo);
             lutador.setNome(nome);
@@ -130,6 +128,34 @@ public class frmPrincipal extends javax.swing.JFrame {
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Por favor, selecionar um lutador da tabela");
+        }
+    }
+
+    private void editarLuta() {
+        try {
+            Integer codigo = (Integer) modeloLuta.getValueAt(tblLuta.getSelectedRow(), 0);
+            String dataHoraTexto = (String) modeloLuta.getValueAt(tblLuta.getSelectedRow(), 1);
+            Date dataHora = df.parse(dataHoraTexto);
+            //Lutador desafiado = (Lutador) modeloLuta.getValueAt(tblLuta.getSelectedRow(), 2);
+            //Lutador desafiante = (Lutador) modeloLuta.getValueAt(tblLuta.getSelectedRow(), 3);
+            int partidas = (int) modeloLuta.getValueAt(tblLuta.getSelectedRow(), 4);
+
+
+            Luta luta = new Luta();
+            luta.setCodigo(codigo);
+            luta.setDataHora(dataHora);
+            //luta.setDesafiado(desafiado);
+            //luta.setDesafiante(desafiante);
+            luta.setPartidas(partidas);
+
+            new frmLuta(luta).setVisible(true);
+
+        } catch (ArrayIndexOutOfBoundsException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Por favor, selecionar um luta da tabela");
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Erro ao converter Data e Hora");
         }
     }
 
@@ -291,8 +317,18 @@ public class frmPrincipal extends javax.swing.JFrame {
         }
 
         btnInserirLuta.setText("Inserir");
+        btnInserirLuta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInserirLutaActionPerformed(evt);
+            }
+        });
 
         btnEditarLuta.setText("Editar");
+        btnEditarLuta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarLutaActionPerformed(evt);
+            }
+        });
 
         btnApagarLuta.setText("Apagar");
         btnApagarLuta.addActionListener(new java.awt.event.ActionListener() {
@@ -370,6 +406,14 @@ public class frmPrincipal extends javax.swing.JFrame {
     private void btnEditarLutadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarLutadorActionPerformed
         editarLutador();
     }//GEN-LAST:event_btnEditarLutadorActionPerformed
+
+    private void btnInserirLutaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirLutaActionPerformed
+        new frmLuta(null).setVisible(true);
+    }//GEN-LAST:event_btnInserirLutaActionPerformed
+
+    private void btnEditarLutaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarLutaActionPerformed
+        editarLuta();
+    }//GEN-LAST:event_btnEditarLutaActionPerformed
 
     /**
      * @param args the command line arguments

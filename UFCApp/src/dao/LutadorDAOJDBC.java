@@ -12,7 +12,7 @@ public class LutadorDAOJDBC implements LutadorDAO {
         StringBuilder sqlBuilder = new StringBuilder();
         sqlBuilder
                 .append("insert into lutador(nome, nacionalidade, idade, altura, peso) ")
-                .append("VALUES (?, ?, ?, ?, ?, ?)");
+                .append("VALUES (?, ?, ?, ?, ?)");
      
         String insert = sqlBuilder.toString();
         int linha = 0;

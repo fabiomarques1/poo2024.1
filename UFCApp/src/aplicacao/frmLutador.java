@@ -2,6 +2,7 @@ package aplicacao;
 
 import dao.DAOFactory;
 import dao.LutadorDAO;
+import javax.swing.JOptionPane;
 import modelo.Lutador;
 
 public class frmLutador extends javax.swing.JFrame {
@@ -77,9 +78,19 @@ public class frmLutador extends javax.swing.JFrame {
         jPanel1.add(spnPeso, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 140, 64, -1));
 
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 180, -1, -1));
 
         btnOK.setText("OK");
+        btnOK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOKActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnOK, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 180, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -98,6 +109,74 @@ public class frmLutador extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void inserir() {
+        if (txtNome.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Preencha o nome!");
+            txtNome.requestFocus();
+            return;
+        }
+        if (txtNacionalidade.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Preencha a nacionalidade!");
+            txtNacionalidade.requestFocus();
+            return;
+        }
+        
+        Lutador lutadorInserido = new Lutador();
+        lutadorInserido.setNome(txtNome.getText());
+        lutadorInserido.setNacionalidade(txtNacionalidade.getText());
+        lutadorInserido.setIdade((int) spnIdade.getValue());
+        lutadorInserido.setAltura((float) spnAltura.getValue());
+        lutadorInserido.setPeso((float) spnPeso.getValue());
+                
+        int linha = lutadorDAO.inserir(lutadorInserido);
+        if (linha > 0) {
+            JOptionPane.showMessageDialog(this, "Lutador inserido com sucesso!");
+            txtNome.setText("");
+            txtNacionalidade.setText("");
+        } else {
+            JOptionPane.showMessageDialog(this, "Erro ao inserir Lutador.");
+        }
+    }
+
+   private void editar() {
+        Lutador lutadorEditado = new Lutador();
+        lutadorEditado.setCodigo(lutador.getCodigo());
+        lutadorEditado.setNome(txtNome.getText());
+        lutadorEditado.setNacionalidade(txtNacionalidade.getText());
+        lutadorEditado.setIdade( (int) spnIdade.getValue());
+        lutadorEditado.setAltura((float) spnAltura.getValue());
+        lutadorEditado.setPeso((float) spnPeso.getValue());
+
+        int linha = lutadorDAO.editar(lutadorEditado);
+        if (linha > 0) {
+            JOptionPane.showMessageDialog(this, "Lutador editado com sucesso!");
+        } else {
+            JOptionPane.showMessageDialog(this, "Erro ao editar Lutador.");
+        }
+    }
+
+    private void cancelar() {
+        Object[] opcao = {"Não", "Sim"};
+        int opcaoSelecionada = JOptionPane.showOptionDialog(this, "Deseja realmente sair?", "Aviso",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, opcao, opcao[0]);
+        if (opcaoSelecionada == 1) {
+            this.dispose();
+        }
+    }
+    private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
+        if (this.lutador != null) {
+            editar();
+            this.dispose();
+        } else {
+            inserir();
+            txtNome.requestFocus();
+        }
+    }//GEN-LAST:event_btnOKActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        cancelar();
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
