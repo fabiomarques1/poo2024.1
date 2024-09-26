@@ -134,22 +134,8 @@ public class frmPrincipal extends javax.swing.JFrame {
     private void editarLuta() {
         try {
             Integer codigo = (Integer) modeloLuta.getValueAt(tblLuta.getSelectedRow(), 0);
-            String dataHoraTexto = (String) modeloLuta.getValueAt(tblLuta.getSelectedRow(), 1);
-            Date dataHora = df.parse(dataHoraTexto);
-            //Lutador desafiado = (Lutador) modeloLuta.getValueAt(tblLuta.getSelectedRow(), 2);
-            //Lutador desafiante = (Lutador) modeloLuta.getValueAt(tblLuta.getSelectedRow(), 3);
-            int partidas = (int) modeloLuta.getValueAt(tblLuta.getSelectedRow(), 4);
-
-
-            Luta luta = new Luta();
-            luta.setCodigo(codigo);
-            luta.setDataHora(dataHora);
-            //luta.setDesafiado(desafiado);
-            //luta.setDesafiante(desafiante);
-            luta.setPartidas(partidas);
-
+            Luta luta = lutaDAO.listar(codigo);
             new frmLuta(luta).setVisible(true);
-
         } catch (ArrayIndexOutOfBoundsException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Por favor, selecionar um luta da tabela");

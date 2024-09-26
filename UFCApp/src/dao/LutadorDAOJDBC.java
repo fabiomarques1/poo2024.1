@@ -71,7 +71,7 @@ public class LutadorDAOJDBC implements LutadorDAO {
     @Override
     public List<Lutador> listar() {
         ResultSet rset;
-        String select = "SELECT * FROM lutador";
+        String select = "SELECT * FROM lutador ORDER BY nome";
         List<Lutador> lutadores = new ArrayList<>();
         try {        
             rset = DAOGenerico.executarConsulta(select);

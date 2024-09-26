@@ -83,7 +83,7 @@ public class frmLutador extends javax.swing.JFrame {
                 btnCancelarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 180, -1, -1));
+        jPanel1.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 180, -1, -1));
 
         btnOK.setText("OK");
         btnOK.addActionListener(new java.awt.event.ActionListener() {
@@ -91,7 +91,7 @@ public class frmLutador extends javax.swing.JFrame {
                 btnOKActionPerformed(evt);
             }
         });
-        jPanel1.add(btnOK, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 180, -1, -1));
+        jPanel1.add(btnOK, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 180, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

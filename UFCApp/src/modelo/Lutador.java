@@ -160,20 +160,7 @@ public class Lutador {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Lutador{");
-        sb.append("codigo=").append(codigo);
-        sb.append(", nome=").append(nome);
-        sb.append(", nacionalidade=").append(nacionalidade);
-        sb.append(", idade=").append(idade);
-        sb.append(", altura=").append(altura);
-        sb.append(", peso=").append(peso);
-        sb.append(", categoria=").append(categoria);
-        sb.append(", vitorias=").append(vitorias);
-        sb.append(", derrotas=").append(derrotas);
-        sb.append(", empates=").append(empates);
-        sb.append('}');
-        return sb.toString();
+        return nome;
     }
     
     
