@@ -10,4 +10,5 @@ public interface LutaDAO {
     public int apagar(int codigo) throws ClassNotFoundException, SQLException, SQLIntegrityConstraintViolationException;
     public List<Luta> listar();
     public Luta listar(int codigo);
+    public int aprovarLuta(int codigo);
 }

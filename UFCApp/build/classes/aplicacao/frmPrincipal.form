@@ -213,6 +213,8 @@
                   <Component id="jScrollPane2" alignment="1" pref="709" max="32767" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="32767" attributes="0"/>
+                      <Component id="btnAprovarLuta" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnInserirLuta" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnEditarLuta" min="-2" max="-2" attributes="0"/>
@@ -231,6 +233,7 @@
                           <Component id="btnInserirLuta" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnEditarLuta" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnApagarLuta" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnAprovarLuta" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="0" pref="7" max="32767" attributes="0"/>
                   </Group>
@@ -324,6 +327,14 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnApagarLutaActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="btnAprovarLuta">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Aprovar Luta"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAprovarLutaActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

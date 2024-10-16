@@ -8,7 +8,6 @@ import dao.DAOFactory;
 import dao.LutaDAO;
 import dao.LutadorDAO;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.Luta;
@@ -167,6 +166,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         btnInserirLuta = new javax.swing.JButton();
         btnEditarLuta = new javax.swing.JButton();
         btnApagarLuta = new javax.swing.JButton();
+        btnAprovarLuta = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -323,6 +323,13 @@ public class frmPrincipal extends javax.swing.JFrame {
             }
         });
 
+        btnAprovarLuta.setText("Aprovar Luta");
+        btnAprovarLuta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAprovarLutaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout painelLutasLayout = new javax.swing.GroupLayout(painelLutas);
         painelLutas.setLayout(painelLutasLayout);
         painelLutasLayout.setHorizontalGroup(
@@ -330,6 +337,8 @@ public class frmPrincipal extends javax.swing.JFrame {
             .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 709, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelLutasLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnAprovarLuta)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnInserirLuta)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnEditarLuta)
@@ -345,7 +354,8 @@ public class frmPrincipal extends javax.swing.JFrame {
                 .addGroup(painelLutasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnInserirLuta)
                     .addComponent(btnEditarLuta)
-                    .addComponent(btnApagarLuta))
+                    .addComponent(btnApagarLuta)
+                    .addComponent(btnAprovarLuta))
                 .addGap(0, 7, Short.MAX_VALUE))
         );
 
@@ -401,6 +411,21 @@ public class frmPrincipal extends javax.swing.JFrame {
         editarLuta();
     }//GEN-LAST:event_btnEditarLutaActionPerformed
 
+    private void btnAprovarLutaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAprovarLutaActionPerformed
+        try {
+            Integer codigo = (Integer) modeloLuta.getValueAt(tblLuta.getSelectedRow(), 0);
+            Luta luta = lutaDAO.listar(codigo);
+            if (!luta.isAprovada()) {
+                new frmAprovarLuta(luta).setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(this, "Esta luta já aconteceu!");
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Por favor, selecionar um luta da tabela");
+        }
+    }//GEN-LAST:event_btnAprovarLutaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -439,6 +464,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnApagarLuta;
     private javax.swing.JButton btnApagarLutador;
+    private javax.swing.JButton btnAprovarLuta;
     private javax.swing.JButton btnEditarLuta;
     private javax.swing.JButton btnEditarLutador;
     private javax.swing.JButton btnInserirLuta;

@@ -10,4 +10,7 @@ public interface LutadorDAO {
     public int apagar(int codigo) throws ClassNotFoundException, SQLException, SQLIntegrityConstraintViolationException;
     public List<Lutador> listar();
     public Lutador listar(int codigo);
+    public int empatarLuta(int codigo);
+    public int ganharLuta(int codigo);
+    public int perderLuta(int codigo);
 }

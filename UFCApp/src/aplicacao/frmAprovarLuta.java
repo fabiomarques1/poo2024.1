@@ -3,31 +3,28 @@ package aplicacao;
 import dao.DAOFactory;
 import dao.LutaDAO;
 import dao.LutadorDAO;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Random;
 import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import modelo.Luta;
 import modelo.Lutador;
 
-public class frmLuta extends javax.swing.JFrame {
+public class frmAprovarLuta extends javax.swing.JFrame {
 
     Lutador lutador;
     Luta luta;
     LutadorDAO lutadorDAO = DAOFactory.criarLutadorDAO();
     LutaDAO lutaDAO = DAOFactory.criarLutaDAO();
     
-    public frmLuta(Luta luta) {
+    public frmAprovarLuta(Luta luta) {
         initComponents();
         carregarCombo();
         if (luta != null) {
             this.luta = luta;
-            btnOK.setText("Editar");
             spnDataHora.setValue(luta.getDataHora());
             System.out.println("desafiado: " + luta.getDesafiado());
             System.out.println("desafiante: " + luta.getDesafiante());
@@ -35,8 +32,9 @@ public class frmLuta extends javax.swing.JFrame {
             cbDesafiante.setSelectedItem(luta.getDesafiante());
             spnPartidas.setValue(luta.getPartidas());
         } else {
-            btnOK.setText("Inserir");
+            JOptionPane.showMessageDialog(this, "Erro ao carregar os dados da Luta");
         }
+        rbLutaReprovada.setSelected(true);
     }
     
     private void carregarCombo() {
@@ -60,6 +58,7 @@ public class frmLuta extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroupAprovarLuta = new javax.swing.ButtonGroup();
         lblDesafiado = new javax.swing.JLabel();
         lblDataHora = new javax.swing.JLabel();
         lblDesafiante = new javax.swing.JLabel();
@@ -69,9 +68,12 @@ public class frmLuta extends javax.swing.JFrame {
         cbDesafiante = new javax.swing.JComboBox<>();
         spnPartidas = new javax.swing.JSpinner();
         btnOK = new javax.swing.JButton();
-        btnCancelar = new javax.swing.JButton();
+        btnVoltar = new javax.swing.JButton();
         lblCategoriaDesafiado = new javax.swing.JLabel();
         lblCategoriaDesafiante = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        rbLutaReprovada = new javax.swing.JRadioButton();
+        rbLutaAprovada = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -86,8 +88,10 @@ public class frmLuta extends javax.swing.JFrame {
 
         spnDataHora.setModel(new javax.swing.SpinnerDateModel());
         spnDataHora.setEditor(new javax.swing.JSpinner.DateEditor(spnDataHora, "dd/MM/yyyy HH:mm:ss"));
+        spnDataHora.setEnabled(false);
 
         cbDesafiado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbDesafiado.setEnabled(false);
         cbDesafiado.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cbDesafiadoItemStateChanged(evt);
@@ -95,6 +99,7 @@ public class frmLuta extends javax.swing.JFrame {
         });
 
         cbDesafiante.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbDesafiante.setEnabled(false);
         cbDesafiante.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cbDesafianteItemStateChanged(evt);
@@ -103,6 +108,7 @@ public class frmLuta extends javax.swing.JFrame {
 
         spnPartidas.setModel(new javax.swing.SpinnerNumberModel(2, 1, 4, 1));
         spnPartidas.setEditor(new javax.swing.JSpinner.NumberEditor(spnPartidas, "0"));
+        spnPartidas.setEnabled(false);
 
         btnOK.setText("OK");
         btnOK.addActionListener(new java.awt.event.ActionListener() {
@@ -111,16 +117,44 @@ public class frmLuta extends javax.swing.JFrame {
             }
         });
 
-        btnCancelar.setText("Cancelar");
-        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+        btnVoltar.setText("Voltar");
+        btnVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelarActionPerformed(evt);
+                btnVoltarActionPerformed(evt);
             }
         });
 
         lblCategoriaDesafiado.setText("Categoria: ");
 
         lblCategoriaDesafiante.setText("Categoria:");
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Aprovar Luta?"));
+
+        buttonGroupAprovarLuta.add(rbLutaReprovada);
+        rbLutaReprovada.setText("Não");
+
+        buttonGroupAprovarLuta.add(rbLutaAprovada);
+        rbLutaAprovada.setText("Sim");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(rbLutaAprovada, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(rbLutaReprovada, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rbLutaReprovada)
+                    .addComponent(rbLutaAprovada))
+                .addContainerGap(39, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -132,7 +166,7 @@ public class frmLuta extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnOK)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnCancelar))
+                        .addComponent(btnVoltar))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -141,12 +175,14 @@ public class frmLuta extends javax.swing.JFrame {
                                 .addGap(5, 5, 5)
                                 .addComponent(spnDataHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(42, 42, 42)
-                                .addComponent(lblDesafiante)
-                                .addGap(9, 9, 9)
-                                .addComponent(cbDesafiante, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(44, 44, 44)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblDesafiado, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(64, 64, 64)
+                                        .addComponent(cbDesafiado, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblCategoriaDesafiante))
+                                .addComponent(lblCategoriaDesafiado))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(55, 55, 55)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -155,15 +191,16 @@ public class frmLuta extends javax.swing.JFrame {
                                         .addComponent(spnPartidas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(lblPartidas, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(44, 44, 44)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblDesafiado, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(42, 42, 42)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGap(64, 64, 64)
-                                        .addComponent(cbDesafiado, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(lblDesafiante)
+                                        .addGap(9, 9, 9)
+                                        .addComponent(cbDesafiante, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblCategoriaDesafiado)))
-                        .addGap(0, 76, Short.MAX_VALUE)))
+                                .addComponent(lblCategoriaDesafiante)))
+                        .addGap(0, 92, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -197,11 +234,13 @@ public class frmLuta extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(1, 1, 1)
                         .addComponent(lblPartidas)))
-                .addGap(27, 27, 27)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnOK)
-                    .addComponent(btnCancelar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnVoltar))
+                .addContainerGap())
         );
 
         pack();
@@ -218,111 +257,53 @@ public class frmLuta extends javax.swing.JFrame {
         lblCategoriaDesafiante.setText("Categoria: " + desafiante.getCategoria());
     }//GEN-LAST:event_cbDesafianteItemStateChanged
 
-    private Date validarDataLuta() {
-        Date dataLuta = null;
-        boolean erro = true;
-        dataLuta = (Date) spnDataHora.getValue();
-        Calendar data = Calendar.getInstance();
-        data.setTime(dataLuta);
-        Calendar hoje = Calendar.getInstance();
-        hoje.getTime();
-        if (hoje.before(data)) {
-            erro = false;
-        }
 
-        if (erro) {
-            SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-            JOptionPane.showMessageDialog(this, "Data/Hora da Luta " + formatoData.format(dataLuta) + " precisa ser posterior a Data/Hora Atual");
-            dataLuta = null;
-            spnDataHora.requestFocus();
-        }
-        return dataLuta;
-    }
-    
-    private Luta validarLuta() {
-        //verificar data e hora futura
-        Date dataLuta = validarDataLuta();
-        if (dataLuta == null) {
-            return null;
-        }
-        //verificar se são lutadores da mesma categoria
-        if (!lblCategoriaDesafiado.getText().equals(lblCategoriaDesafiante.getText())) {
-            JOptionPane.showMessageDialog(this, "Os lutadores DEVEM ser da MESMA categoria!");
-            cbDesafiado.requestFocus();
-            return null;
-        }
-        //verificar se são lutadores diferentes
-        if (cbDesafiado.getSelectedItem().equals(cbDesafiante.getSelectedItem())) {
-            JOptionPane.showMessageDialog(this, "Os lutadores NÃO podem ser iguais!");
-            cbDesafiado.requestFocus();
-            return null;
-        }
-        
-        Luta luta = new Luta();
-        luta.setDataHora(dataLuta);
-        luta.setDesafiado((Lutador) cbDesafiado.getSelectedItem());
-        luta.setDesafiante((Lutador) cbDesafiante.getSelectedItem());
-        luta.setPartidas((int) spnPartidas.getValue());
-        return luta;
-    }
-            
-    private void inserir() {
-        Luta luta = validarLuta();
-        int linha = lutaDAO.inserir(luta);
-        if (linha > 0) {
-            JOptionPane.showMessageDialog(this, "Luta inserida com sucesso!");
-            cbDesafiado.setSelectedIndex(0);
-            cbDesafiado.setSelectedIndex(0);
-            spnDataHora.requestFocus();
-        } else {
-            JOptionPane.showMessageDialog(this, "Erro ao inserir Luta.");
-        }
-    }
-    
-    private void editar() {
-        Luta luta = validarLuta();
-        int linha = lutaDAO.editar(luta);
-        if (linha > 0) {
-            JOptionPane.showMessageDialog(this, "Luta editada com sucesso!");
-        } else {
-            JOptionPane.showMessageDialog(this, "Erro ao editar Luta.");
-        }
-    }
-    
     private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
-        if (this.luta != null) {
-            editar();
-            this.dispose();
-        } else {
-            inserir();
-            spnDataHora.requestFocus();
-        }
+        if (rbLutaAprovada.isSelected()) {
+            Random random = new Random();
+            int resultado = random.nextInt(3);
+            lutaDAO.aprovarLuta(luta.getCodigo());
+            switch (resultado) {
+                case 0 -> {
+                    JOptionPane.showMessageDialog(this, "Empate!");
+                    lutadorDAO.empatarLuta(luta.getDesafiante().getCodigo());
+                    lutadorDAO.empatarLuta(luta.getDesafiado().getCodigo());
+                }
+                case 1 -> {
+                    JOptionPane.showMessageDialog(this, "Desafiante venceu!");
+                    lutadorDAO.ganharLuta(luta.getDesafiante().getCodigo());
+                    lutadorDAO.perderLuta(luta.getDesafiado().getCodigo());
+                }
+                case 2 -> {
+                    JOptionPane.showMessageDialog(this, "Desafiado venceu!");
+                    lutadorDAO.perderLuta(luta.getDesafiante().getCodigo());
+                    lutadorDAO.ganharLuta(luta.getDesafiado().getCodigo());
+                }
+            }
+        } 
+        this.dispose();
     }//GEN-LAST:event_btnOKActionPerformed
 
-    private void cancelar() {
-        Object[] opcao = {"Não", "Sim"};
-        int opcaoSelecionada = JOptionPane.showOptionDialog(this, "Deseja realmente sair?", "Aviso",
-                JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, opcao, opcao[0]);
-        if (opcaoSelecionada == 1) {
-            this.dispose();
-        }
-    }
-    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        cancelar();
-    }//GEN-LAST:event_btnCancelarActionPerformed
+    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnVoltarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnOK;
+    private javax.swing.JButton btnVoltar;
+    private javax.swing.ButtonGroup buttonGroupAprovarLuta;
     private javax.swing.JComboBox<String> cbDesafiado;
     private javax.swing.JComboBox<String> cbDesafiante;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblCategoriaDesafiado;
     private javax.swing.JLabel lblCategoriaDesafiante;
     private javax.swing.JLabel lblDataHora;
     private javax.swing.JLabel lblDesafiado;
     private javax.swing.JLabel lblDesafiante;
     private javax.swing.JLabel lblPartidas;
+    private javax.swing.JRadioButton rbLutaAprovada;
+    private javax.swing.JRadioButton rbLutaReprovada;
     private javax.swing.JSpinner spnDataHora;
     private javax.swing.JSpinner spnPartidas;
     // End of variables declaration//GEN-END:variables

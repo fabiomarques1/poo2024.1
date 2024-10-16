@@ -157,5 +157,22 @@ public class LutaDAOJDBC implements LutaDAO {
         } 
         return luta;
     }
+
+    @Override
+    public int aprovarLuta(int codigo) {
+        StringBuilder sqlBuilder = new StringBuilder();
+        sqlBuilder
+                .append("UPDATE luta SET ")
+                .append("aprovada = true ")
+                .append("WHERE codigo = ?");
+        String update = sqlBuilder.toString();
+        int linha = 0;
+        try {
+            linha = DAOGenerico.executarComando(update, codigo);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return linha; 
+    }
     
 }

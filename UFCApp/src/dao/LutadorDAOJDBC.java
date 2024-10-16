@@ -99,5 +99,56 @@ public class LutadorDAOJDBC implements LutadorDAO {
     public Lutador listar(int codigo) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
+    @Override
+    public int empatarLuta(int codigo) {
+        StringBuilder sqlBuilder = new StringBuilder();
+        sqlBuilder
+                .append("UPDATE lutador SET ")
+                .append("empates = empates + 1 ")
+                .append("WHERE codigo = ?");
+        String update = sqlBuilder.toString();
+        int linha = 0;
+        try {
+            linha = DAOGenerico.executarComando(update, codigo);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return linha;
+    }
+
+    @Override
+    public int ganharLuta(int codigo) {
+        StringBuilder sqlBuilder = new StringBuilder();
+        sqlBuilder
+                .append("UPDATE lutador SET ")
+                .append("vitorias = vitorias + 1 ")
+                .append("WHERE codigo = ?");
+        String update = sqlBuilder.toString();
+        int linha = 0;
+        try {
+            linha = DAOGenerico.executarComando(update, codigo);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return linha;
+    }
+
+    @Override
+    public int perderLuta(int codigo) {
+        StringBuilder sqlBuilder = new StringBuilder();
+        sqlBuilder
+                .append("UPDATE lutador SET ")
+                .append("derrotas = derrotas + 1 ")
+                .append("WHERE codigo = ?");
+        String update = sqlBuilder.toString();
+        int linha = 0;
+        try {
+            linha = DAOGenerico.executarComando(update, codigo);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return linha;
+    }
     
 }
